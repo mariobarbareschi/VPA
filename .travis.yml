@@ -1,9 +1,5 @@
 sudo: required
 dist: trusty
-language: cpp
-compiler:
-    - clang
-    - g++
 addons:
   apt:
     sources:
@@ -15,7 +11,11 @@ addons:
     - gcc-5
     - g++-5
     - clang-3.6
-
+language:
+        - cpp
+compiler:
+        - clang
+        - g++
 script:
   - mkdir build
   - cd build
