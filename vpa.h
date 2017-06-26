@@ -63,9 +63,6 @@ inline ::std::ostream& operator<<(::std::ostream& out, int128_t val) {
 #define DOUBLE_MANT_SIZE              52
 #define DOUBLE_SIZE                   DOUBLE_EXP_SIZE + DOUBLE_MANT_SIZE + DOUBLE_SIGN_SIZE
 
-#define GENERATE_RAND_FLOAT           (float)(((double)rand()/RAND_MAX) * 100)
-#define GENERATE_RAND_DOUBLE          (((double)rand()/RAND_MAX)*100)
-
 typedef uint8_t SignType;
 typedef uint16_t ExpType;
 typedef uint128_t MantType;
@@ -112,8 +109,8 @@ struct FloatPointPrecTy{
     double = FloatPointPrecTy(DOUBLE_EXP_SIZE,DOUBLE_MANT_SIZE)
 };*/
     
-#define half_prec FloatPointPrecTy(HALF_EXP_SIZE,FLOAT_MANT_SIZE)
-#define float_prec FloatPointPrecTy(DOUBLE_EXP_SIZE,DOUBLE_MANT_SIZE)
+#define half_prec FloatPointPrecTy(HALF_EXP_SIZE,HALF_MANT_SIZE)
+#define float_prec FloatPointPrecTy(FLOAT_EXP_SIZE,FLOAT_MANT_SIZE)
 #define double_prec FloatPointPrecTy(DOUBLE_EXP_SIZE,DOUBLE_MANT_SIZE)
 
 class VPA {
@@ -323,10 +320,8 @@ private:
 
 };
 
-}//end namespace fap
+}
 
-/// @defgroup OPERATOR_OVERLOAD_INPUT_OUTPUT Input/Output overloaded operators
-/// @{
 ::std::ostream& operator<<(::std::ostream&, const ::vpa::VPA&);
 
 

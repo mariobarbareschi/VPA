@@ -169,7 +169,7 @@ void vpa_shift_left_(uint128_t *bit_vector, int to_shift, uint8_t *grs) {
   //  for (uint16_t i = 0; i < strlen(descr) + 3; ++i){
   //    out << " ";
   //  }
-  out << "[" << fp.getPrec().exp_size << ":" << fp.getPrec().mant_size << "]";
+  out << "[" << fp.getPrec().exp_size << ":" << fp.getPrec().mant_size << "]\t";
   out << "[";
   out << setw(1) << (int)fp.getSign() << " | ";
   out << setw(16) << setfill('0') << ::std::hex << fp.getExp() << ::std::dec
@@ -179,7 +179,7 @@ void vpa_shift_left_(uint128_t *bit_vector, int to_shift, uint8_t *grs) {
   out << (((fp.getGrs()) & MASK_BIT_HIGH(uint8_t, 2)) >> 2);
   out << (((fp.getGrs()) & MASK_BIT_HIGH(uint8_t, 1)) >> 1);
   out << (((fp.getGrs()) & MASK_BIT_HIGH(uint8_t, 0)));
-  out << "]\n";
+  out << "] ---> " << (double)fp<<"\n";
 
   return out;
 }
