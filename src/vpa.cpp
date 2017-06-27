@@ -491,7 +491,7 @@ operator/=(const VPA &fp) {
   return lhs;
 }
 ///////////////////////////////////////////////////////////////////////////////
-void ::vpa::VPA::changePrec(::vpa::FloatPointPrecTy new_prec) {
+void ::vpa::VPA::changePrec(::vpa::FloatingPointPrecision new_prec) {
   // Check if it's necessary to apply the rounding: shift + rounding method
   int prec_diff = 0;
 #ifdef _VPA_DEBUG
@@ -539,7 +539,7 @@ void ::vpa::VPA::adaptPrec(VPA &rhs) {
   vpa_print_binary(op1, "VPA_FP_ADAPT_PREC - op1_pre");
   vpa_print_binary(op2, "VPA_FP_ADAPT_PREC - op2_pre");
 #endif
-  FloatPointPrecTy min_prec, rhs_prec = rhs.getPrec();
+  FloatingPointPrecision min_prec, rhs_prec = rhs.getPrec();
   min_prec.exp_size = this->prec.exp_size < rhs_prec.exp_size
                           ? this->prec.exp_size
                           : rhs_prec.exp_size;

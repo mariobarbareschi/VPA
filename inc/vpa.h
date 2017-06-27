@@ -90,24 +90,24 @@ void vpa_shift_left_(uint128_t*, int to_shift, uint8_t* grs);
 
 namespace vpa {
 
-struct FloatPointPrecTy{
+struct FloatingPointPrecision{
     uint16_t exp_size;  ///< Size of the exponent
     uint16_t mant_size;  ///< Size of the mantissa
-    FloatPointPrecTy(uint16_t e_size = 0, uint16_t m_size = 0)
+    FloatingPointPrecision(uint16_t e_size = 0, uint16_t m_size = 0)
       : exp_size(e_size),
         mant_size(m_size) {
   }
 };
 
-/*enum FloatPointPrecTy{
-    half = FloatPointPrecTy(HALF_EXP_SIZE,FLOAT_MANT_SIZE),
-    float = FloatPointPrecTy(DOUBLE_EXP_SIZE,DOUBLE_MANT_SIZE),
-    double = FloatPointPrecTy(DOUBLE_EXP_SIZE,DOUBLE_MANT_SIZE)
+/*enum FloatingPointPrecision{
+    half = FloatingPointPrecision(HALF_EXP_SIZE,FLOAT_MANT_SIZE),
+    float = FloatingPointPrecision(DOUBLE_EXP_SIZE,DOUBLE_MANT_SIZE),
+    double = FloatingPointPrecision(DOUBLE_EXP_SIZE,DOUBLE_MANT_SIZE)
 };*/
     
-#define half_prec FloatPointPrecTy(HALF_EXP_SIZE,HALF_MANT_SIZE)
-#define float_prec FloatPointPrecTy(FLOAT_EXP_SIZE,FLOAT_MANT_SIZE)
-#define double_prec FloatPointPrecTy(DOUBLE_EXP_SIZE,DOUBLE_MANT_SIZE)
+#define half_prec FloatingPointPrecision(HALF_EXP_SIZE,HALF_MANT_SIZE)
+#define float_prec FloatingPointPrecision(FLOAT_EXP_SIZE,FLOAT_MANT_SIZE)
+#define double_prec FloatingPointPrecision(DOUBLE_EXP_SIZE,DOUBLE_MANT_SIZE)
 
 class VPA {
     /// @brief Class for Variable Precision Aritmetic
@@ -118,7 +118,7 @@ private:
   ExpType exp;  ///< Exponent on max 16 bit
   MantType mant;  ///< Mantissa on max 64 bit
   uint8_t grs;  ///< Guard, round and sticky bits of the mantissa
-  FloatPointPrecTy prec;  ///< Information about the precision
+  FloatingPointPrecision prec;  ///< Information about the precision
  public:
   /// \{
   /// \brief Default ctor
@@ -127,16 +127,16 @@ private:
         exp(0),
         mant(0),
         grs(0),
-        prec(FloatPointPrecTy()) {}
+        prec(FloatingPointPrecision()) {}
 
   /// @brief Conversion from float
-  VPA(float f, FloatPointPrecTy n_prec = float_prec) {
+  VPA(float f, FloatingPointPrecision n_prec = float_prec) {
     *this = f;
     this->changePrec(n_prec);
   }
 
   /// @brief Conversion from double
-  VPA(double d, FloatPointPrecTy n_prec = double_prec) {
+  VPA(double d, FloatingPointPrecision n_prec = double_prec) {
     *this = d;
     this->changePrec(n_prec);
   }
@@ -187,11 +187,11 @@ private:
     this->grs = grs;
   }
 
-  FloatPointPrecTy getPrec() const {
+  FloatingPointPrecision getPrec() const {
     return prec;
   }
 
-  void setPrec(FloatPointPrecTy prec) {
+  void setPrec(FloatingPointPrecision prec) {
     this->prec = prec;
   }
 
@@ -305,7 +305,7 @@ private:
   }
 
   void adaptPrec(VPA&);
-  void changePrec(FloatPointPrecTy);
+  void changePrec(FloatingPointPrecision);
 
   static void test(float op1, float op2);
   static void test(double op1, double op2);
