@@ -17,7 +17,7 @@ int main(int argc, char* argv[]){
     bool inputPassed = false;
     bool outputPassed = false;
     double inputValue;
-    ::vpa::FloatPointPrecTy outPrecision;
+    ::vpa::FloatingPointPrecision outPrecision;
     char opt;
     while ((opt = getopt(argc, argv, "hm:i:o:")) != -1) {
         switch (opt) {
