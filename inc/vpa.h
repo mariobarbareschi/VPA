@@ -44,7 +44,6 @@ inline ::std::ostream& operator<<(::std::ostream& out, int128_t val) {
 }
 #endif
 ///////////////////////////////////////////////////////////////////////////////
-//#define _FAP_DEBUG_
 
 #define _VPA_LIBRARY_
 
@@ -90,9 +89,6 @@ void vpa_shift_left_(uint128_t*, int to_shift, uint8_t* grs);
 /// @}
 
 namespace vpa {
-
-using IntegerPrecision = uint8_t;
-
 
 struct FloatPointPrecTy{
     uint16_t exp_size;  ///< Size of the exponent
