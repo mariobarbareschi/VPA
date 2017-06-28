@@ -54,7 +54,7 @@ int main(int argc, char* argv[]){
     else{
         if(inputPassed && outputPassed){
             ::vpa::VPA valIn(inputValue);
-            ::vpa::VPA valOut(inputValue, outPrecision);
+            ::vpa::VPA valOut(valIn, outPrecision);
             std::cout<< "Input value: " << valIn << std::endl;
             std::cout<< "Output value: " << valOut << std::endl;
         }

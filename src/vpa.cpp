@@ -79,14 +79,14 @@ void vpa_shift_left_(uint128_t *bit_vector, int to_shift, uint8_t *grs) {
 
 ///////////////////////////////////////////////////////////////////////////////
 // VPA Library - C++ Interface
-//::vpa::VPA& ::vpa::VPA::operator=(VPA_fp_t fp) {
-//  this->sign = fp.sign;
-//  this->exp = fp.exp;
-//  this->mant = fp.mant;
-//  this->grs = fp.grs;
-//  this->prec = fp.prec;
-//  return *this;
-//}
+::vpa::VPA& ::vpa::VPA::operator=(VPA fp) {
+  this->sign = fp.sign;
+  this->exp = fp.exp;
+  this->mant = fp.mant;
+  this->grs = fp.grs;
+  this->prec = fp.prec;
+  return *this;
+}
 
 ::vpa::VPA & ::vpa::VPA::operator=(float fp) {
   this->prec.mant_size = FLOAT_MANT_SIZE;

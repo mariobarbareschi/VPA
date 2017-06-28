@@ -140,6 +140,11 @@ private:
     *this = d;
     this->changePrec(n_prec);
   }
+    
+  VPA(VPA vpaObj, FloatingPointPrecision n_prec) {
+    *this = vpaObj;
+    this->changePrec(n_prec);
+  }
 
   /// \{
   // Getters and Setters
@@ -213,6 +218,7 @@ private:
   // Assign operators
   VPA& operator=(float);
   VPA& operator=(double);
+  VPA& operator=(VPA);
 
   // Arithmetic operators
   // Each operations is done at the minimum precision between the operands
