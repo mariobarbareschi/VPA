@@ -186,10 +186,10 @@ void vpa_shift_left_(uint128_t *bit_vector, int to_shift, uint8_t *grs) {
 
 // Arithmetic operators
 ::vpa::VPA & ::vpa::VPA::
-operator+=(const VPA &fp) {
+operator+=(const ::vpa::VPA &fp) {
   //  ::std::cout << "Custom Add";
-  VPA &lhs = *this;
-  VPA rhs = fp;
+  ::vpa::VPA &lhs = *this;
+  ::vpa::VPA rhs = fp;
 
 #ifdef _VPA_DEBUG_
   lhs.setName("Result");
@@ -245,7 +245,7 @@ operator+=(const VPA &fp) {
   rhs.setMantHb();
   lhs.shift(-op_prec);
   rhs.shift(-op_prec);
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   printf("VPA_FP_ADD - exp_diff=%d\n", exp_diff);
   vpa_print_binary(&op1, "VPA_FP_ADD - op1");
   vpa_print_binary(&op2, "VPA_FP_ADD - op2");
@@ -266,7 +266,7 @@ operator+=(const VPA &fp) {
   lhs.setGrs(less_exp_op->getGrs()); // Set the result grs
 //  less_exp_op->exp += (exp_diff);
 
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   vpa_print_binary(&op1, "VPA_FP_ADD - op1_post_shift");
   vpa_print_binary(&op2, "VPA_FP_ADD - op2_post_shift");
   vpa_print_binary(fp_res, "VPA_FP_ADD - res_pre");
@@ -289,7 +289,7 @@ operator+=(const VPA &fp) {
   if (this->mant == 0) {
     lhs.setExp(0);
   }
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   vpa_print_binary(fp_res, "VPA_FP_ADD - res");
 #endif
   // Normalize
@@ -306,18 +306,18 @@ operator+=(const VPA &fp) {
 }
 
 ::vpa::VPA & ::vpa::VPA::
-operator-=(const VPA &fp) {
+operator-=(const ::vpa::VPA &fp) {
   //  ::std::cout << "Custom Sub";
   *this += (-fp);
   return *this;
 }
 
 ::vpa::VPA & ::vpa::VPA::
-operator*=(const VPA &fp) {
-  VPA &lhs = *this;
-  VPA rhs = fp;
+operator*=(const ::vpa::VPA &fp) {
+  ::vpa::VPA &lhs = *this;
+  ::vpa::VPA rhs = fp;
 
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   lhs.setName("Result");
   rhs.setName("Operand 2");
 #endif
@@ -362,7 +362,7 @@ operator*=(const VPA &fp) {
 
   lhs.setMantHb();
   rhs.setMantHb();
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   vpa_print_binary(&op1, "VPA_FP_MUL - op1_whb");
   vpa_print_binary(&op2, "VPA_FP_MUL - op2_whb");
 #endif
@@ -376,7 +376,7 @@ operator*=(const VPA &fp) {
   // 2bias -bias --> new_exp + bias
   lhs.setExp(lhs.getExp() + rhs.getExp() -
              EXPONENT_BIAS(lhs.getPrec().exp_size));
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   vpa_print_binary(fp_res, "VPA_FP_MUL - res");
 #endif
   // Multiplication of mantissas create a double sized mantissa
@@ -390,7 +390,7 @@ operator*=(const VPA &fp) {
   // Re-shift to mant_size
   int to_shift = actual_mant_prec - (lhs.getPrec().mant_size + 1);
   lhs.shift(to_shift);
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   vpa_print_binary(fp_res, "VPA_FP_MUL - res_post_shift");
 #endif
   // Mask
@@ -402,11 +402,11 @@ operator*=(const VPA &fp) {
 }
 
 ::vpa::VPA & ::vpa::VPA::
-operator/=(const VPA &fp) {
-  VPA &lhs = *this;
-  VPA rhs = fp;
+operator/=(const ::vpa::VPA &fp) {
+  ::vpa::VPA &lhs = *this;
+  ::vpa::VPA rhs = fp;
 
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   lhs.setName("Result");
   rhs.setName("Operand 2");
 #endif
@@ -455,7 +455,7 @@ operator/=(const VPA &fp) {
   uint16_t precision = lhs.getPrec().mant_size + 1;
   lhs.setMantHb();
   rhs.setMantHb();
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   vpa_print_binary(&op1, "VPA_FP_DIV - op1_whb");
   vpa_print_binary(&op2, "VPA_FP_DIV - op2_whb");
 #endif
@@ -466,7 +466,7 @@ operator/=(const VPA &fp) {
       round_shift; // + round_shift for the guard,round and sticky bits
   lhs.shift(-dividend_shift);
 
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   vpa_print_binary(&op1, "VPA_FP_DIV - op1_whb_shift");
 #endif
 
@@ -478,7 +478,7 @@ operator/=(const VPA &fp) {
   // Calculate exponent
   lhs.setExp(lhs.getExp() - rhs.getExp() +
              EXPONENT_BIAS(lhs.getPrec().exp_size) - 1);
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   vpa_print_binary(fp_res, "VPA_FP_DIV - res");
 #endif
   // Multiplication of mantissas create a double sized mantissa
@@ -494,7 +494,7 @@ operator/=(const VPA &fp) {
 void ::vpa::VPA::changePrec(::vpa::FloatingPointPrecision new_prec) {
   // Check if it's necessary to apply the rounding: shift + rounding method
   int prec_diff = 0;
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   printf("\nVPA_FP_CHANGE_PREC - old_prec.exp=%d | old_prec.mant=%d\n",
          this->prec.exp_size, this->prec.mant_size);
   printf("VPA_FP_CHANGE_PREC - new_prec.exp=%d | new_prec.mant=%d\n",
@@ -513,7 +513,7 @@ void ::vpa::VPA::changePrec(::vpa::FloatingPointPrecision new_prec) {
     this->exp = (ExpType)expanded_exp;
   }
 
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   vpa_print_binary(this, "VPA_FP_CHANGE_PREC - after_exp");
 #endif
   if (this->prec.mant_size != new_prec.mant_size) {
@@ -529,13 +529,13 @@ void ::vpa::VPA::changePrec(::vpa::FloatingPointPrecision new_prec) {
       this->round();
     }
   }
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   vpa_print_binary(this, "VPA_FP_CHANGE_PREC - after_mant");
 #endif
 }
 
-void ::vpa::VPA::adaptPrec(VPA &rhs) {
-#ifdef _VPA_DEBUG
+void ::vpa::VPA::adaptPrec(::vpa::VPA &rhs) {
+#ifdef _VPA_DEBUG_
   vpa_print_binary(op1, "VPA_FP_ADAPT_PREC - op1_pre");
   vpa_print_binary(op2, "VPA_FP_ADAPT_PREC - op2_pre");
 #endif
@@ -551,7 +551,7 @@ void ::vpa::VPA::adaptPrec(VPA &rhs) {
   // Change precision
   this->changePrec(min_prec);
   rhs.changePrec(min_prec);
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   printf("VPA_FP_ADAPT_PREC - min_prec %d:%d\n", min_prec.exp_size,
          min_prec.mant_size);
   vpa_print_binary(op1, "VPA_FP_ADAPT_PREC - op1");
@@ -682,7 +682,7 @@ void ::vpa::VPA::test(double op1, double op2) {
 }
 
 void ::vpa::VPA::shift(int to_shift) {
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   printf("\nVPA_FP_SHIFT - to_shift=%d\n", to_shift);
   vpa_print_binary(fp, "VPA_FP_SHIFT - old");
 #endif
@@ -693,7 +693,7 @@ void ::vpa::VPA::shift(int to_shift) {
     vpa_shift_left_(&ex_mant, -to_shift, &(this->grs));
   }
   this->mant = (MantType)ex_mant;
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   printf("\n");
   vpa_print_binary(fp, "VPA_FP_SHIFT - new");
 #endif
@@ -711,13 +711,13 @@ void ::vpa::VPA::normalize(int max_prec, int actual_prec) {
     // Check the first high bit position respect to actual_prec
     int first_bit_high_pos = (max_prec - first_bit_high);
     int to_shift = (actual_prec - first_bit_high_pos);
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
     printf("\nVPA_FP_NORMALIZE - to_shift=%d\n", -to_shift);
     vpa_print_binary(fp, "VPA_FP_NORMALIZE - old");
 #endif
     this->shift(-to_shift);
     this->exp -= to_shift;
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
     vpa_print_binary(fp, "VPA_FP_NORMALIZE - new");
 #endif
     this->mant &= MASK_LOWER_HIGH(MantType, actual_prec);
@@ -725,7 +725,7 @@ void ::vpa::VPA::normalize(int max_prec, int actual_prec) {
 }
 
 void ::vpa::VPA::round(VPA_rounding_method method) {
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   printf("\nVPA_FP_ROUND - round_m=%d\n", round_m);
   vpa_print_binary(fp, "VPA_FP_ROUND - old");
 #endif
@@ -768,7 +768,7 @@ void ::vpa::VPA::round(VPA_rounding_method method) {
   // The round method has been applied reset the grs
   this->grs = 0x00;
   this->setMant(this->mant);
-#ifdef _VPA_DEBUG
+#ifdef _VPA_DEBUG_
   vpa_print_binary(fp, "FAP_FP_ROUND - new");
 #endif
 }
