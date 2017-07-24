@@ -104,7 +104,7 @@ struct FloatingPointPrecision{
   }
 };
 
-#define FPPequals(x,y) x.mant_size == y.mant_size && x.exp_size == y.exp_size
+#define FPPequals(x,y) (x.mant_size == y.mant_size && x.exp_size == y.exp_size)
     
 #define half_prec FloatingPointPrecision(HALF_EXP_SIZE,HALF_MANT_SIZE)
 #define float_prec FloatingPointPrecision(FLOAT_EXP_SIZE,FLOAT_MANT_SIZE)
