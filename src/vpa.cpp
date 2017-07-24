@@ -116,7 +116,7 @@ void vpa_shift_left_(uint128_t *bit_vector, int to_shift, uint8_t *grs) {
   if (this->prec.exp_size > FLOAT_EXP_SIZE ||
       this->prec.mant_size > FLOAT_MANT_SIZE) {
       
-      ::std:cerr << "EXP: " << this->prec.exp_size << " MANT: " << this->prec.mant_size << "\n";
+      ::std::cerr << "EXP: " << this->prec.exp_size << " MANT: " << this->prec.mant_size << "\n";
       
     ::std::cerr << "VPA precision is more than the float";
     exit(1);

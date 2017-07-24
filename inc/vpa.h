@@ -104,11 +104,7 @@ struct FloatingPointPrecision{
   }
 };
 
-/*enum FloatingPointPrecision{
-    half = FloatingPointPrecision(HALF_EXP_SIZE,FLOAT_MANT_SIZE),
-    float = FloatingPointPrecision(DOUBLE_EXP_SIZE,DOUBLE_MANT_SIZE),
-    double = FloatingPointPrecision(DOUBLE_EXP_SIZE,DOUBLE_MANT_SIZE)
-};*/
+#define FPPequals(x,y) x.mant_size == y.mant_size && x.exp_size == y.exp_size
     
 #define half_prec FloatingPointPrecision(HALF_EXP_SIZE,HALF_MANT_SIZE)
 #define float_prec FloatingPointPrecision(FLOAT_EXP_SIZE,FLOAT_MANT_SIZE)
