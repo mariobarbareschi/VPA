@@ -113,10 +113,8 @@ void ::vpa_n::VPA::changePrec(::vpa_n::VPAPrecision new_prec) {
 }
 
 void ::vpa_n::VPA::adaptPrec(::vpa_n::VPA &rhs) {
-std::cout << "Current" << rhs.getPrec() << " " << prec << std::endl;
 	switch(prec){
 		case FLOAT:
-		std::cout << "Float " << value << std::endl;
 			if(rhs.getPrec() != FLOAT){
 				if(UPCASTING)
 					this->changePrec(rhs.getPrec());
@@ -140,7 +138,6 @@ std::cout << "Current" << rhs.getPrec() << " " << prec << std::endl;
 				}
 		break;
 		default: // long double
-		std::cout << "long dougle " << value << std::endl;
 			if(rhs.getPrec() != LONG_DOUBLE){
 				if(UPCASTING)
 					rhs.changePrec(LONG_DOUBLE);
@@ -149,5 +146,4 @@ std::cout << "Current" << rhs.getPrec() << " " << prec << std::endl;
 			}
 		break;
 	}
-std::cout << "New" << rhs.getPrec() << " " << prec << std::endl;
 }
